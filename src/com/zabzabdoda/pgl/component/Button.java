@@ -6,20 +6,20 @@ import processing.core.PApplet;
 
 public class Button extends Component{
 	
-	private String text;
-	private boolean isHovered,isPressed;
+	protected String text;
+	protected boolean isHovered;
+	private boolean isPressed;
 	private ButtonListener buttonListener;
-	private PApplet papplet;
-	
-	public Button(int x, int y, int width, int height, String text, PApplet p) {
+
+	public Button(int x, int y, int width, int height, String text) {
 		super(x,y,width,height);
 		this.text = text;
 		this.isHovered = false;
 		this.isPressed = false;
-		buttonListener = null;
-		this.papplet = p;
-		
+		this.buttonListener = null;
 	}
+	
+	
 	
 	public void setListener(ButtonListener buttonListener) {
 		this.buttonListener = buttonListener;
@@ -27,36 +27,39 @@ public class Button extends Component{
 	
 	@Override
 	public void draw() {
-		papplet.pushStyle();
-		papplet.noStroke();
-		papplet.textAlign(PApplet.CENTER,PApplet.CENTER);
-		if(isPressed) {
-			papplet.fill(122, 138, 153);
-			papplet.rect(x,y,width,height);
-			papplet.fill(181, 206, 228);
-			papplet.rect(x+2,y+2,width-4,height-4);
-			papplet.fill(Color.BLACK.getRGB());
-			papplet.text(text, x, y,width,height);
-		}else {
-			if(isHovered) {
-				papplet.fill(122, 138, 153);
-				papplet.rect(x, y, width, height);
-				setGradient(x+2,y+2,width-5,height-5,new Color(255,255,255),new Color(190, 211, 231));
-				papplet.fill(Color.BLACK.getRGB());
-				papplet.text(text, x, y,width,height);
+		if(p != null) {
+			p.pushStyle();
+			p.noStroke();
+			p.textAlign(PApplet.CENTER,PApplet.CENTER);
+			p.textSize(12);
+			if(isPressed) {
+				p.fill(122, 138, 153);
+				p.rect(x,y,width,height);
+				p.fill(181, 206, 228);
+				p.rect(x+2,y+2,width-4,height-4);
+				p.fill(Color.BLACK.getRGB());
+				p.text(text, x, y,width,height);
 			}else {
-				papplet.fill(122, 138, 153);
-				papplet.rect(x, y, width, height);
-				setGradient(x+1,y+1,width-3,height-3,new Color(255,255,255),new Color(190, 211, 231));
-				papplet.fill(Color.BLACK.getRGB());
-				papplet.text(text, x, y,width,height);
+				if(isHovered) {
+					p.fill(122, 138, 153);
+					p.rect(x, y, width, height);
+					setGradient(x+2,y+2,width-5,height-5,new Color(255,255,255),new Color(190, 211, 231));
+					p.fill(Color.BLACK.getRGB());
+					p.text(text, x, y,width,height);
+				}else {
+					p.fill(122, 138, 153);
+					p.rect(x, y, width, height);
+					setGradient(x+1,y+1,width-3,height-3,new Color(255,255,255),new Color(190, 211, 231));
+					p.fill(Color.BLACK.getRGB());
+					p.text(text, x, y,width,height);
+				}
 			}
+			p.popStyle();
 		}
-		papplet.popStyle();
 	}
 	
 	public void mouseMoved() {
-		if(detectCollision(papplet.mouseX,papplet.mouseY)) {
+		if(detectCollision(p.mouseX,p.mouseY)) {
 			isHovered = true;
 		}else {
 			isHovered = false;
@@ -68,15 +71,13 @@ public class Button extends Component{
 	}
 	
 	public void mousePressed() {
-		if(detectCollision(papplet.mouseX,papplet.mouseY)) {
+		if(detectCollision(p.mouseX,p.mouseY)) {
 			isPressed = true;
 			click();
 		}
 	}
 	
 	public boolean detectCollision(int x, int y) {
-		System.out.println(x+", "+y);
-		System.out.println(this.x+", "+this.y);
 		if(this.x <= x && this.y <= y && this.x + width >= x && this.y + height >= y) {
 			return true;
 		}
@@ -104,18 +105,18 @@ public class Button extends Component{
 	}
 	
 	void setGradient(int x, int y, float w, float h, Color c1, Color c2) {
-		papplet.pushStyle();
-		papplet.noFill();
+		p.pushStyle();
+		p.noFill();
 	    for (int i = y; i <= y+h/4; i++) {
 	    	float inter = PApplet.map(i, y, (y+h/4), 1, 0);
-		    papplet.stroke(papplet.lerpColor(papplet.color(c1.getRGB()), papplet.color(c2.getRGB()), inter));
-		    papplet.line(x, i, x+w, i);
+		    p.stroke(p.lerpColor(p.color(c1.getRGB()), p.color(c2.getRGB()), inter));
+		    p.line(x, i, x+w, i);
 	    }
 	    for (int i = (int) (y+h/4)+1; i <= y+h; i++) {
 	    	float inter = PApplet.map(i, y+h/4, y+h, 0, 1);
-		    papplet.stroke(papplet.lerpColor(papplet.color(c1.getRGB()), papplet.color(c2.getRGB()), inter));
-		    papplet.line(x, i, x+w, i);
+		    p.stroke(p.lerpColor(p.color(c1.getRGB()), p.color(c2.getRGB()), inter));
+		    p.line(x, i, x+w, i);
 	    }
-	    papplet.popStyle();
+	    p.popStyle();
 	}
 }

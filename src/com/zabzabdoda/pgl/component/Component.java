@@ -1,8 +1,14 @@
 package com.zabzabdoda.pgl.component;
 
+import java.awt.Point;
+
+import processing.core.PApplet;
+
 public abstract class Component {
 	
 	protected int x,y,width,height;
+	protected int xOffset,yOffset;
+	protected PApplet p;
 
 	public Component(int x, int y, int width, int height) {
 		this.x = x;
@@ -12,6 +18,24 @@ public abstract class Component {
 	}
 	
 	public abstract void draw();
+	public abstract void mouseMoved();
+	public abstract void mousePressed();
+	public abstract void mouseReleased();
+	
+	public void setPApplet(PApplet p) {
+		this.p = p;
+	}
+	
+	public void setFrameOffset(int x, int y) {
+		this.xOffset = x;
+		this.yOffset = y;
+		this.x += xOffset;
+		this.y += yOffset;
+	}
+	
+	public Point getFrameOffset() {
+		return new Point(xOffset,yOffset);
+	}
 	
 	public int getX() {
 		return x;
