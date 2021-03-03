@@ -23,11 +23,8 @@ import com.zabzabdoda.pgl.component.ToggleButton;
  *  - Add combobox
  *  - Add listbox
  *  - Add progressbar
- *  - Add radio button
- *  - Add radio controller
  *  - Add spinner
  *  - Add slider
- *
  */
 public class Main {
 	
@@ -55,21 +52,25 @@ public class Main {
 		});
 		frame.add(tb1);
 		
-		Panel pan = new Panel(300,300,200,200);
-		
-		RadioButton rb1 = new RadioButton("Option 1", 10, 0, 100, 25);
-		RadioButton rb2 = new RadioButton("Option 2", 10, 50, 100, 25);
-		RadioButton rb3 = new RadioButton("Option 3", 10, 100, 100, 25);
-		RadioButton rb4 = new RadioButton("Option 4", 10, 150, 100, 25);
+		Panel pan = new Panel(100,100,200,250);
+		Label l2 = new Label("Favorite Movie:",0,0,pan.getWidth(),50);
+		l2.setAlignment(PApplet.CENTER, PApplet.CENTER);
+		l2.setTextSize(20);
+		RadioButton rb1 = new RadioButton("Star Wars", 10, 50, 100, 25);
+		RadioButton rb2 = new RadioButton("Lord Of The Rings", 10, 100, 100, 25);
+		RadioButton rb3 = new RadioButton("Star Trek", 10, 150, 100, 25);
+		RadioButton rb4 = new RadioButton("Marvel", 10, 200, 100, 25);
 		RadioController rc = new RadioController();
 		pan.add(rb1);
 		pan.add(rb2);
 		pan.add(rb3);
 		pan.add(rb4);
+		pan.add(l2);
 		rc.add(rb1);
 		rc.add(rb2);
 		rc.add(rb3);
 		rc.add(rb4);
+		rc.setDefault(rb1);
 		pan.add(rc);
 		frame.add(pan);
 		frame.startDraw(true);

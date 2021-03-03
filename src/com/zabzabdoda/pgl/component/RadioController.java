@@ -22,12 +22,17 @@ public class RadioController extends Component{
 		radioButtons.remove(radioButton);
 	}
 	
+	public void setDefault(RadioButton def) {
+		setSelected(def);
+	}
+	
 	public RadioButton getSelected() {
 		return selected;
 	}
 	
 	public void setSelected(RadioButton radioButton) {
 		selected = radioButton;
+		radioButton.setToggle(true);
 	}
 
 	@Override
@@ -45,13 +50,12 @@ public class RadioController extends Component{
 	@Override
 	public void mousePressed() {
 		for(RadioButton rb : radioButtons) {
-			System.out.println(rb.getX()+", "+rb.getY());
+			//System.out.println(rb.getX()+", "+rb.getY());
 			if(rb.detectCollision(p.mouseX, p.mouseY)) {
 				for(RadioButton b : radioButtons) {
 					b.setToggle(false);
 				}
-				selected = rb;
-				rb.setToggle(true);
+				setSelected(rb);
 			}
 		}
 	}
