@@ -11,6 +11,15 @@ public class Button extends Component implements ButtonListener{
 	private boolean isPressed;
 	private ButtonListener buttonListener;
 
+	/**
+	 * Constructs a new rectangular button 
+	 * 
+	 * @param x the x position on the window
+	 * @param y the y position on the window
+	 * @param width the width of the button
+	 * @param height the height of the button
+	 * @param text the text displayed on the button
+	 */
 	public Button(int x, int y, int width, int height, String text) {
 		super(x,y,width,height);
 		this.text = text;
@@ -20,11 +29,22 @@ public class Button extends Component implements ButtonListener{
 	}
 	
 	
-	
+	/**
+	 * Sets the listener that will run when the button
+	 * is clicked
+	 * 
+	 * @param buttonListener The listener that will run when the button is pressed
+	 */
 	public void setListener(ButtonListener buttonListener) {
 		this.buttonListener = buttonListener;
 	}
 	
+	/**
+	 * 
+	 * Draws the button when the button is 
+	 * assigned to a panel or frame
+	 * 
+	 */
 	@Override
 	public void draw() {
 		if(p != null) {
@@ -58,6 +78,9 @@ public class Button extends Component implements ButtonListener{
 		}
 	}
 	
+	/**
+	 * Gets called when the user moves the mouse
+	 */
 	public void mouseMoved() {
 		if(detectCollision(this.p.mouseX,this.p.mouseY)) {
 			this.isHovered = true;
@@ -66,10 +89,16 @@ public class Button extends Component implements ButtonListener{
 		}
 	}
 	
+	/**
+	 * Gets called when the user releases the mouse 1 button
+	 */
 	public void mouseReleased() {
 		this.isPressed = false;
 	}
 	
+	/**
+	 * Gets called when the user presses down the mouse 1 button
+	 */
 	public void mousePressed() {
 		if(detectCollision(this.p.mouseX,this.p.mouseY)) {
 			this.isPressed = true;
@@ -77,6 +106,15 @@ public class Button extends Component implements ButtonListener{
 		}
 	}
 	
+	/**
+	 * 
+	 * Gets whether the x and y positions collide
+	 * with the button
+	 * 
+	 * @param x The x value of the point being checked against the button
+	 * @param y The y value of the point being checked against the button
+	 * @return Whether the x y point collides with the button
+	 */
 	public boolean detectCollision(int x, int y) {
 		if(this.x <= x && this.y <= y && this.x + width >= x && this.y + height >= y) {
 			return true;
@@ -84,21 +122,51 @@ public class Button extends Component implements ButtonListener{
 		return false;
 	}
 	
+	/**
+	 * 
+	 * Runs when the button is clicked
+	 * 
+	 */
 	public void click() {
 		if(this.buttonListener != null) {
 			this.buttonListener.onClicked();
 		}
 	}
 	
+	/**
+	 * Sets the hover state
+	 * 
+	 * @param hover whether the user is hovering or not
+	 * 
+	 */
 	public void hover(boolean hover) {
 		this.isHovered = hover;
 	}
 	
+	/**
+	 * 
+	 * Returns the text displayed on the button
+	 * 
+	 * @return the text on the button
+	 */
 	public String getText() {
 		return this.text;
 	}
 	
-	void setGradient(int x, int y, float w, float h, Color c1, Color c2) {
+	/**
+	 * 
+	 * Sets the gradient of the button
+	 * Button colors and pattern are currently 
+	 * static
+	 * 
+	 * @param x The x position of the button
+	 * @param y The y position of the button
+	 * @param w The width of the button
+	 * @param h The height of the button
+	 * @param c1 The lower/upper color of the button
+	 * @param c2 The middle color of the button
+	 */
+	protected void setGradient(int x, int y, float w, float h, Color c1, Color c2) {
 		p.pushStyle();
 		p.noFill();
 	    for (int i = y; i <= y+h/4; i++) {
@@ -118,7 +186,6 @@ public class Button extends Component implements ButtonListener{
 
 	@Override
 	public void onClicked() {
-		// TODO Auto-generated method stub
 		
 	}
 }
