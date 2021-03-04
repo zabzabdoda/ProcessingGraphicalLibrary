@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
-public class Button extends Component{
+public class Button extends Component implements ButtonListener{
 	
 	protected String text;
 	protected boolean isHovered;
@@ -32,7 +32,7 @@ public class Button extends Component{
 			p.noStroke();
 			p.textAlign(PApplet.CENTER,PApplet.CENTER);
 			p.textSize(12);
-			if(isPressed) {
+			if(this.isPressed) {
 				p.fill(122, 138, 153);
 				p.rect(x,y,width,height);
 				p.fill(181, 206, 228);
@@ -40,18 +40,18 @@ public class Button extends Component{
 				p.fill(Color.BLACK.getRGB());
 				p.text(text, x, y,width,height);
 			}else {
-				if(isHovered) {
-					p.fill(122, 138, 153);
-					p.rect(x, y, width, height);
+				if(this.isHovered) {
+					this.p.fill(122, 138, 153);
+					this.p.rect(x, y, width, height);
 					setGradient(x+2,y+2,width-5,height-5,new Color(255,255,255),new Color(190, 211, 231));
-					p.fill(Color.BLACK.getRGB());
-					p.text(text, x, y,width,height);
+					this.p.fill(Color.BLACK.getRGB());
+					this.p.text(text, x, y,width,height);
 				}else {
-					p.fill(122, 138, 153);
-					p.rect(x, y, width, height);
+					this.p.fill(122, 138, 153);
+					this.p.rect(x, y, width, height);
 					setGradient(x+1,y+1,width-3,height-3,new Color(255,255,255),new Color(190, 211, 231));
-					p.fill(Color.BLACK.getRGB());
-					p.text(text, x, y,width,height);
+					this.p.fill(Color.BLACK.getRGB());
+					this.p.text(text, x, y,width,height);
 				}
 			}
 			p.popStyle();
@@ -59,20 +59,20 @@ public class Button extends Component{
 	}
 	
 	public void mouseMoved() {
-		if(detectCollision(p.mouseX,p.mouseY)) {
-			isHovered = true;
+		if(detectCollision(this.p.mouseX,this.p.mouseY)) {
+			this.isHovered = true;
 		}else {
-			isHovered = false;
+			this.isHovered = false;
 		}
 	}
 	
 	public void mouseReleased() {
-		isPressed = false;
+		this.isPressed = false;
 	}
 	
 	public void mousePressed() {
-		if(detectCollision(p.mouseX,p.mouseY)) {
-			isPressed = true;
+		if(detectCollision(this.p.mouseX,this.p.mouseY)) {
+			this.isPressed = true;
 			click();
 		}
 	}
@@ -85,23 +85,17 @@ public class Button extends Component{
 	}
 	
 	public void click() {
-		if(buttonListener != null) {
-			buttonListener.onClicked();
+		if(this.buttonListener != null) {
+			this.buttonListener.onClicked();
 		}
 	}
 	
 	public void hover(boolean hover) {
-		isHovered = hover;
+		this.isHovered = hover;
 	}
 	
 	public String getText() {
-		return text;
-	}
-
-	public interface ButtonListener {
-		
-		public void onClicked();
-		
+		return this.text;
 	}
 	
 	void setGradient(int x, int y, float w, float h, Color c1, Color c2) {
@@ -118,5 +112,13 @@ public class Button extends Component{
 		    p.line(x, i, x+w, i);
 	    }
 	    p.popStyle();
+	}
+
+
+
+	@Override
+	public void onClicked() {
+		// TODO Auto-generated method stub
+		
 	}
 }

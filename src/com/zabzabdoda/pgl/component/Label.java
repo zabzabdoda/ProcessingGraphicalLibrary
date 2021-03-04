@@ -29,6 +29,10 @@ public class Label extends Component {
 		p.popStyle();
 	}
 	
+	public void setText(String text) {
+		this.text = text;
+	}
+	
 	public void setAlignment(int alignment,int alignment2) {
 		this.alignment = alignment;
 		this.alignment2 = alignment2;
