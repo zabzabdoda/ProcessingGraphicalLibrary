@@ -4,7 +4,15 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
-public class Button extends Component implements ButtonListener{
+/**
+ * Represents a rectangular button that can
+ * accept a listener to run code when the button
+ * is pressed.
+ * 
+ * @author zabzabdoda
+ *
+ */
+public class Button extends Component implements MouseListener{
 	
 	protected String text;
 	protected boolean isHovered;
@@ -46,7 +54,7 @@ public class Button extends Component implements ButtonListener{
 	 * 
 	 */
 	@Override
-	public void draw() {
+	protected void draw() {
 		if(p != null) {
 			p.pushStyle();
 			p.noStroke();
@@ -181,11 +189,13 @@ public class Button extends Component implements ButtonListener{
 	    }
 	    p.popStyle();
 	}
-
-
-
-	@Override
-	public void onClicked() {
-		
+	
+	
+	
+	public interface ButtonListener{
+		/**
+		 * Method to run when the button is clicked
+		 */
+		public void onClicked();
 	}
 }

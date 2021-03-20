@@ -4,14 +4,23 @@ import processing.core.PApplet;
 
 public class RadioButton extends ToggleButton{
 
-	
-	
+	/**
+	 * 
+	 * @param name The text displayed next to the button
+	 * @param x The x  position of the button
+	 * @param y The y position of the button
+	 * @param width The width of the button
+	 * @param height The height of the button
+	 */
 	public RadioButton(String name, int x, int y, int width, int height) {
 		super(x, y, width, height, name);
 	}
 
+	/**
+	 * Draws the radio button
+	 */
 	@Override
-	public void draw() {
+	protected void draw() {
 		p.pushStyle();
 		p.noFill();
 		p.ellipseMode(PApplet.CENTER);
@@ -29,6 +38,11 @@ public class RadioButton extends ToggleButton{
 		p.popStyle();
 	}
 
+	/**
+	 * Sets the state of the radio button
+	 * 
+	 * @param tog The state of the radio button
+	 */
 	public void setToggle(boolean tog) {
 		isOn = tog;
 	}

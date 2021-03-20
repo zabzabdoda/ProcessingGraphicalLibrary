@@ -4,25 +4,60 @@ import java.util.HashSet;
 
 import processing.core.PApplet;
 
-public class Panel extends Component{
+/**
+ * Represents an area where components can be
+ * stored and drawn with its own relative coordinate
+ * system
+ * 
+ * @author zabzabdoda
+ *
+ */
+public class Panel extends Component implements MouseListener{
 	
 	private HashSet<Component> components;
 	
+	/**
+	 * Constructs a new panel at a certain position
+	 * 
+	 * @param x The x value of the panel
+	 * @param y The y value of the panel
+	 * @param width The width of the panel
+	 * @param height The height of the panel
+	 */
 	public Panel(int x, int y, int width, int height) {
 		super(x,y,width,height);
 		components = new HashSet<Component>();
 	}
 	
+	/**
+	 * Adds a component to the panel and
+	 * sets its relative positioning to the
+	 * x,y values of the panel
+	 * 
+	 * @param comp The component to add
+	 */
 	public void add(Component comp) {
 		components.add(comp);
-		comp.setFrameOffset(x, y);
+		comp.addFrameOffset(x, y);
 	}
 	
+	/**
+	 * Removes the component from the panel
+	 * and resets its offset to the main frame
+	 * 
+	 * @param comp The component to remove
+	 */
 	public void remove(Component comp) {
 		components.remove(comp);
-		comp.setFrameOffset(0, 0);
+		comp.addFrameOffset(0, 0);
 	}
 	
+	/**
+	 * Sets the surface that all the components
+	 * are drawn on
+	 * 
+	 * @param p PApplet object of main window
+	 */
 	@Override
 	public void setPApplet(PApplet p) {
 		this.p = p;
@@ -31,6 +66,11 @@ public class Panel extends Component{
 		}
 	}
 	
+	/**
+	 * draws the panel and all of its components
+	 * to the main window
+	 * 
+	 */
 	@Override
 	public void draw() {
 		p.pushStyle();
@@ -42,24 +82,39 @@ public class Panel extends Component{
 		}
 	}
 
+	/**
+	 * calls all component mousemoved methods
+	 */
 	@Override
 	public void mouseMoved() {
 		for(Component c : components) {
-			c.mouseMoved();
+			if(c instanceof MouseListener) {
+				((MouseListener)c).mouseMoved();
+			}
 		}
 	}
 
+	/**
+	 * calls all component mousemoved methods
+	 */
 	@Override
 	public void mousePressed() {
 		for(Component c : components) {
-			c.mousePressed();
-		}		
+			if(c instanceof MouseListener) {
+				((MouseListener)c).mousePressed();
+			}			
+		}
 	}
 
+	/**
+	 * calls all component mousemoved methods
+	 */
 	@Override
 	public void mouseReleased() {
 		for(Component c : components) {
-			c.mouseReleased();
+			if(c instanceof MouseListener) {
+				((MouseListener)c).mouseReleased();
+			}
 		}
 	}
 	

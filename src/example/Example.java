@@ -3,7 +3,7 @@ package example;
 import javax.swing.JFrame;
 
 import com.zabzabdoda.pgl.component.Button;
-import com.zabzabdoda.pgl.component.ButtonListener;
+import com.zabzabdoda.pgl.component.Button.ButtonListener;
 
 import processing.core.PApplet;
 

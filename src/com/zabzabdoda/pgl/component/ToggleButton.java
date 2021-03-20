@@ -14,7 +14,7 @@ public class ToggleButton extends Button{
 	}
 	
 	@Override
-	public void draw() {
+	protected void draw() {
 		if(p != null) {
 			p.pushStyle();
 			p.noStroke();

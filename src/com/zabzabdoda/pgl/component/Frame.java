@@ -29,6 +29,7 @@ import processing.core.PApplet;
 public class Frame extends PApplet{
 	
 	private LinkedList<Component> components;
+	private LinkedList<MouseListener> mouseListeners;
 	private JFrame swingFrame;
 	private boolean startDraw;
 	
@@ -58,6 +59,7 @@ public class Frame extends PApplet{
 		swingFrame.setDefaultCloseOperation(closeOperation);
 		swingFrame.setResizable(true);
 		components = new LinkedList<Component>();
+		mouseListeners = new LinkedList<MouseListener>();
 	}
 	
 	/**
@@ -66,11 +68,7 @@ public class Frame extends PApplet{
 	 * @param comp the component to add to the frame
 	 */
 	public void add(Component comp) {
-		if(comp instanceof Panel) {
-			components.add(0,comp);
-		}else {
-			components.add(comp);
-		}
+		components.add(comp);
 		comp.setPApplet(this);
 	}
 	
@@ -114,7 +112,8 @@ public class Frame extends PApplet{
 	@Override
 	public void mouseMoved() {
 		for(Component c : components) {
-			c.mouseMoved();
+			((MouseListener)c).mouseMoved();
+
 		}
 	}
 	
@@ -125,7 +124,8 @@ public class Frame extends PApplet{
 	@Override
 	public void mousePressed() {
 		for(Component c : components) {
-			c.mousePressed();
+			((MouseListener)c).mousePressed();
+
 		}
 	}
 	
@@ -136,7 +136,9 @@ public class Frame extends PApplet{
 	@Override
 	public void mouseReleased() {
 		for(Component c : components) {
-			c.mouseReleased();
+			if(c instanceof MouseListener) {
+				((MouseListener)c).mouseReleased();
+			}
 		}
 	}
 
